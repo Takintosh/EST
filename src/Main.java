@@ -65,10 +65,29 @@ public class Main {
                         System.out.print("\n Quantidade a retirar: ");
                         input = new Scanner(System.in);
                         int qty = input.nextInt();
-                        if(Stock.removeStock(found.getId(), qty)) {
-                            System.out.println("Stock atualizado.");
+                        int available = Stock.checkStock(found.getId(), qty);
+                        if(available == qty) {
+                            Stock.removeStock(found.getId(), qty);
+                        } else if (available == 0) {
+                            System.out.print("Nao tem estoque.");
                         } else {
-                            System.out.println("Stock insuficiente.");
+                            boolean error = true;
+                            while (error) {
+                                System.out.print ("\nEstoque insuficiente. Deseja retirar o estoque disponivel (" + available + " em estoque)? (S/N) ");
+                                input = new Scanner(System.in);
+                                if(input.nextLine() == "N") {
+                                    error = false;
+                                    break;
+                                } else if (input.nextLine() == "S") {
+                                    error = false;
+                                    List<Stock> removedStock = Stock.removeStock(found.getId(), available);
+                                    for(Stock s : removedStock) {
+                                        System.out.println("Removido: " + s.getDate() + " - " + s.getQty());
+                                    }
+                                } else {
+                                    System.out.print("\nOpcao errada, tente novamente");
+                                }
+                            }
                         }
                     } else {
                         System.out.println("Produto nao encontrado.");
