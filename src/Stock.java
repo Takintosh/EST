@@ -1,4 +1,5 @@
 import java.time.LocalDate;
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.Queue;
 import java.util.Random;
@@ -40,5 +41,36 @@ public class Stock {
         return stockList;
     }
 
+    public static boolean removeStock(int id, int qty) {
+        for (Product product : Load.products) {
+            if(product.getId() == id) {
+                if (product.getStockList() != null) {
+
+                    Queue<Stock> stockList = product.getStockList();
+                    Iterator<Stock> iterator = stockList.iterator();
+                    int totalStock = 0;
+                    while (iterator.hasNext()) {
+                        totalStock = (totalStock + iterator.next().getQty());
+                    }
+
+                    if(totalStock>=qty) {
+                        int aux = qty;
+                        while (aux!=0) {
+                            if(stockList.element().getQty()>qty) {
+                                stockList.element().setQty(stockList.element().getQty()-qty);
+                                break;
+                            } else {
+                                aux = aux - stockList.element().getQty();
+                                stockList.remove();
+                            }
+                        }
+
+                    }
+
+                }
+            }
+        }
+        return false;
+    }
 
 }

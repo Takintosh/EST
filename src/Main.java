@@ -21,9 +21,10 @@ public class Main {
         while (!done) {
             System.out.println(
                     "\nMenu" +
-                            "\n1 - Buscar produto por código." +
+                            "\n1 - Buscar produto por codigo." +
                             "\n2 - Buscar produto por nome." +
-                            "\n0 - Fechar processo."
+                            "\n0 - Fechar processo." +
+                            "\n3 - Retirar produto por codigo."
             );
             int option = input.nextInt();
 
@@ -54,6 +55,24 @@ public class Main {
                         System.out.println("Produto nao encontrado");
                     }
                     break;
+
+                case 3:
+                    System.out.print("\nCodigo do produto: ");
+                    input = new Scanner(System.in);
+                    productCode = input.nextInt();
+                    found = Product.productSearch(productCode);
+                    if(found != null) {
+                        System.out.print("\n Quantidade a retirar: ");
+                        input = new Scanner(System.in);
+                        int qty = input.nextInt();
+                        if(Stock.removeStock(found.getId(), qty)) {
+                            System.out.println("Stock atualizado.");
+                        } else {
+                            System.out.println("Stock insuficiente.");
+                        }
+                    } else {
+                        System.out.println("Produto nao encontrado.");
+                    }
 
                 case 0:
                     System.out.println("Fechando processo");
