@@ -10,6 +10,7 @@ public class Main {
 
         Load loadData = new Load();
         loadData.load();
+        Stock.setStock();
         menu();
 
     }
