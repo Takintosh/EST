@@ -113,11 +113,11 @@ public class Main {
                     input = new Scanner(System.in);
                     int binaryCode = input.nextInt();
                     Product binaryFound = Product.binarySearch(binaryCode);
-                    int totalStock = 0;
-                    for (Stock s : binaryFound.getStockList()) {
-                        totalStock = totalStock + s.getQty();
-                    }
                     if(binaryFound != null) {
+                        int totalStock = 0;
+                        for (Stock s : binaryFound.getStockList()) {
+                            totalStock = totalStock + s.getQty();
+                        }
                         System.out.println("Id: " + binaryFound.getId() + " - " + binaryFound.getName() +
                                 "\nQuantidade em estoque: " + totalStock);
                     } else {
