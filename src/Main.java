@@ -10,7 +10,16 @@ public class Main {
 
         Load loadData = new Load();
         loadData.load();
-        Stock.setStock();
+
+        /*
+        Product found = Product.productSearch(1);
+        System.out.println(found.getStockList());
+        List<Stock> founded = Stock.removeStock(1, 1);
+        for(Stock f : founded) {
+            System.out.println(f.getDate() + " - " + f.getQty());
+        }
+        */
+
         menu();
 
     }
@@ -67,7 +76,10 @@ public class Main {
                         int qty = input.nextInt();
                         int available = Stock.checkStock(found.getId(), qty);
                         if(available == qty) {
-                            Stock.removeStock(found.getId(), qty);
+                            List<Stock> removedStock = Stock.removeStock(found.getId(), available);
+                            for(Stock s : removedStock) {
+                                System.out.println("Removido: " + s.getDate() + " - " + s.getQty());
+                            }
                         } else if (available == 0) {
                             System.out.print("Nao tem estoque.");
                         } else {
@@ -75,15 +87,16 @@ public class Main {
                             while (error) {
                                 System.out.print ("\nEstoque insuficiente. Deseja retirar o estoque disponivel (" + available + " em estoque)? (S/N) ");
                                 input = new Scanner(System.in);
-                                if(input.nextLine() == "N") {
-                                    error = false;
-                                    break;
-                                } else if (input.nextLine() == "S") {
-                                    error = false;
+                                String select = input.nextLine();
+                                if(select.equals("S")) {
+                                    //System.out.println(Stock.removeStock(found.getId(), available));
                                     List<Stock> removedStock = Stock.removeStock(found.getId(), available);
                                     for(Stock s : removedStock) {
                                         System.out.println("Removido: " + s.getDate() + " - " + s.getQty());
                                     }
+                                    error = false;
+                                } else if (select.equals("N")) {
+                                    error = false;
                                 } else {
                                     System.out.print("\nOpcao errada, tente novamente");
                                 }
@@ -92,6 +105,7 @@ public class Main {
                     } else {
                         System.out.println("Produto nao encontrado.");
                     }
+                    break;
 
                 case 0:
                     System.out.println("Fechando processo");

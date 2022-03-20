@@ -27,13 +27,11 @@ public class Stock {
 
     public static Queue<Stock> setStock() {
         Queue<Stock> stockList = new LinkedList<>();
-        for (Product product : Load.products) {
-            Random generator = new Random();
-            int record = generator.nextInt((20-1)+1)+1;
-            for(int i=0; i<record; i++) {
-                int qty = generator.nextInt((100-1)+1)+1;
-                stockList.add(new Stock(qty));
-            }
+        Random generator = new Random();
+        int record = generator.nextInt((20-1)+1)+1;
+        for(int i=0; i<record; i++) {
+            int qty = generator.nextInt((100-1)+1)+1;
+            stockList.add(new Stock(qty));
         }
         return stockList;
     }
@@ -67,18 +65,21 @@ public class Stock {
         Queue<Stock> stockList = found.getStockList();
         List<Stock> stockRemoved = new ArrayList<>();
         int aux = qty;
+
         while (aux != 0) {
-            if(stockList.element().getQty()>qty) {
-                stockList.element().setQty(stockList.element().getQty()-qty);
+            if(stockList.element().getQty() > aux) {
+                stockList.element().setQty(stockList.element().getQty()-aux);
                 Stock stockAux = stockList.element();
-                stockAux.setQty(qty);
+                stockAux.setQty(aux);
                 stockRemoved.add(stockAux);
+                break;
             } else {
                 aux = aux - stockList.element().getQty();
                 stockRemoved.add(stockList.element());
                 stockList.remove();
             }
         }
+
         return stockRemoved;
     }
 
