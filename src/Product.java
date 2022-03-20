@@ -1,7 +1,4 @@
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Queue;
+import java.util.*;
 
 public class Product {
 
@@ -46,6 +43,7 @@ public class Product {
         }
         return null;
     }
+
     public static List productSearch(String name) {
         List<Product> products = new ArrayList<>();
         //products = null;
@@ -55,6 +53,23 @@ public class Product {
             }
         }
         return products;
+    }
+
+    static class productComparator implements Comparator<Product> {
+        @Override
+        public int compare(Product o1, Product o2) {
+            return (o1.id == o2.id)?0:-1;
+        }
+    }
+    public static Product binarySearch(int productCode) {
+        List<Product> products = Load.products;
+        int index = Collections.binarySearch(products, new Product(productCode, null), new productComparator());
+        if(index>=0) {
+            Product found = products.get(index);
+            return found;
+        } else {
+            return null;
+        }
     }
 
 }

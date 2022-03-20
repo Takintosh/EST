@@ -32,8 +32,9 @@ public class Main {
                     "\nMenu" +
                             "\n1 - Buscar produto por codigo." +
                             "\n2 - Buscar produto por nome." +
-                            "\n0 - Fechar processo." +
-                            "\n3 - Retirar produto por codigo."
+                            "\n3 - Retirar produto por codigo." +
+                            "\n4 - Buscar produto utilizando busca binaria" +
+                            "\n0 - Fechar processo."
             );
             int option = input.nextInt();
 
@@ -105,6 +106,24 @@ public class Main {
                     } else {
                         System.out.println("Produto nao encontrado.");
                     }
+                    break;
+
+                case 4:
+                    System.out.println("Codigo do produto: ");
+                    input = new Scanner(System.in);
+                    int binaryCode = input.nextInt();
+                    Product binaryFound = Product.binarySearch(binaryCode);
+                    int totalStock = 0;
+                    for (Stock s : binaryFound.getStockList()) {
+                        totalStock = totalStock + s.getQty();
+                    }
+                    if(binaryFound != null) {
+                        System.out.println("Id: " + binaryFound.getId() + " - " + binaryFound.getName() +
+                                "\nQuantidade em estoque: " + totalStock);
+                    } else {
+                        System.out.println("Produto nao encontrado.");
+                    }
+
                     break;
 
                 case 0:
