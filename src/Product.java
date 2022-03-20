@@ -1,5 +1,7 @@
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Queue;
 
 public class Product {
 
@@ -7,6 +9,14 @@ public class Product {
 
     private int id;
     private String name;
+    private Queue<Stock> stockList = new LinkedList<>();
+
+    public Queue<Stock> getStockList() {
+        return stockList;
+    }
+    public void setStockList(Queue<Stock> stockList) {
+        this.stockList = stockList;
+    }
 
     public int getId() {
         return id;
@@ -25,6 +35,7 @@ public class Product {
     public Product (int id, String name) {
         setId(id);
         setName(name);
+        setStockList(Stock.setStock());
     }
 
     public static Product productSearch(int id) {
