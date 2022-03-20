@@ -2,8 +2,6 @@ import java.util.*;
 
 public class Product {
 
-    Load loadData = new Load();
-
     private int id;
     private String name;
     private Queue<Stock> stockList = new LinkedList<>();
@@ -44,7 +42,7 @@ public class Product {
         return null;
     }
 
-    public static List productSearch(String name) {
+    public static List<Product> productSearch(String name) {
         List<Product> products = new ArrayList<>();
         //products = null;
         for (Product product : Load.products) {
@@ -65,8 +63,7 @@ public class Product {
         List<Product> products = Load.products;
         int index = Collections.binarySearch(products, new Product(productCode, null), new productComparator());
         if(index>=0) {
-            Product found = products.get(index);
-            return found;
+            return products.get(index);
         } else {
             return null;
         }
