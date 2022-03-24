@@ -112,7 +112,11 @@ public class Main {
                     System.out.println("Codigo do produto: ");
                     input = new Scanner(System.in);
                     int binaryCode = input.nextInt();
-                    Product binaryFound = Product.binarySearch(binaryCode);
+                    Product binaryFound = Product.productBinarySearch(binaryCode);
+
+                    // debug
+                    //Product.productBinarySearch(binaryCode);
+
                     if(binaryFound != null) {
                         int totalStock = 0;
                         for (Stock s : binaryFound.getStockList()) {
@@ -123,7 +127,6 @@ public class Main {
                     } else {
                         System.out.println("Produto nao encontrado.");
                     }
-
                     break;
 
                 case 0:
