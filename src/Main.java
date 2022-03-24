@@ -11,29 +11,20 @@ public class Main {
         Load loadData = new Load();
         loadData.load();
 
-        /*
-        Product found = Product.productSearch(1);
-        System.out.println(found.getStockList());
-        List<Stock> founded = Stock.removeStock(1, 1);
-        for(Stock f : founded) {
-            System.out.println(f.getDate() + " - " + f.getQty());
-        }
-        */
-
         menu();
 
     }
 
     public static void menu() {
 
-
         while (!done) {
             System.out.println(
                     "\nMenu" +
                             "\n1 - Buscar produto por codigo." +
                             "\n2 - Buscar produto por nome." +
-                            "\n0 - Fechar processo." +
-                            "\n3 - Retirar produto por codigo."
+                            "\n3 - Retirar produto por codigo." +
+                            "\n4 - Buscar produto utilizando busca binaria" +
+                            "\n0 - Fechar processo."
             );
             int option = input.nextInt();
 
@@ -89,7 +80,6 @@ public class Main {
                                 input = new Scanner(System.in);
                                 String select = input.nextLine();
                                 if(select.equals("S")) {
-                                    //System.out.println(Stock.removeStock(found.getId(), available));
                                     List<Stock> removedStock = Stock.removeStock(found.getId(), available);
                                     for(Stock s : removedStock) {
                                         System.out.println("Removido: " + s.getDate() + " - " + s.getQty());
@@ -107,6 +97,23 @@ public class Main {
                     }
                     break;
 
+                case 4:
+                    System.out.println("Codigo do produto: ");
+                    input = new Scanner(System.in);
+                    int binaryCode = input.nextInt();
+                    Product binaryFound = Product.productBinarySearch(binaryCode);
+                    if(binaryFound != null) {
+                        int totalStock = 0;
+                        for (Stock s : binaryFound.getStockList()) {
+                            totalStock = totalStock + s.getQty();
+                        }
+                        System.out.println("Id: " + binaryFound.getId() + " - " + binaryFound.getName() +
+                                "\nQuantidade em estoque: " + totalStock);
+                    } else {
+                        System.out.println("Produto nao encontrado.");
+                    }
+                    break;
+
                 case 0:
                     System.out.println("Fechando processo");
                     done = true;
@@ -117,7 +124,6 @@ public class Main {
                     break;
             }
         }
-
 
     }
 

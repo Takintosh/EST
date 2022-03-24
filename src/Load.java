@@ -19,22 +19,22 @@ public class Load {
         try {
             System.out.println("Carregando...");
             BufferedReader reader = new BufferedReader(new FileReader(dataFile));
-            /*
+
+            reader.readLine();
             while ((line = reader.readLine()) != null) {
                 String[] product = line.split(splitBy);
                 products.add(new Product(Integer.parseInt(product[0].trim()), product[21]));
             }
-            */
+
+            /* Debug
             reader.readLine();
             for (int i=0; i<10; i++) {
                 line = reader.readLine();
                 String[] product = line.split(splitBy);
-                //System.out.println(product[0] + " - " + product[21]);
-                //products.add(new Product(Integer.parseInt(product[0].trim()), product[21]));
-                p = new Product(Integer.parseInt(product[0].trim()), product[21]);
-                products.add(p);
-                //System.out.println(p.getId() + " - " + p.getName());
+                products.add(new Product(Integer.parseInt(product[0].trim()), product[21]));
             }
+            */
+
             System.out.println("Dados carregados!");
 
         } catch (FileNotFoundException e) {
@@ -52,6 +52,8 @@ public class Load {
                 }
             }
         }
+        products = Product.productBubbleSort(products);
+        //products = Product.productSelectionSort(products);
     }
 
 }
