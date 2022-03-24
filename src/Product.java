@@ -52,6 +52,40 @@ public class Product {
         return products;
     }
 
+    // Bubble Sort
+    public static List<Product> productBubbleSort(List<Product> productsUnsorted) {
+        List<Product> products = productsUnsorted;
+        for (int i = 1; i < products.size(); i++) {
+            for (int j = products.size() - 1; j >= i; j--) {
+                if (products.get(j-1).getId() > products.get(j).getId()) {
+                    Product auxProduct = products.get(j-1);
+                    products.set(j-1, products.get(j));
+                    products.set(j, auxProduct);
+                }
+            }
+        }
+        return products;
+    }
+
+    // Selection Sort
+    public static List<Product> productSelectionSort(List<Product> productsUnsorted) {
+        List<Product> products = productsUnsorted;
+        int smallerIndex;
+        for (int i = 0; i < products.size() - 1; i++) {
+            smallerIndex = i;
+            Product auxProduct = products.get(i);
+            for (int j = i; j < products.size(); j++) {
+                if (products.get(j).getId() < auxProduct.getId()) {
+                    smallerIndex = j;
+                    auxProduct = products.get(j);
+                }
+            }
+            products.set(smallerIndex, products.get(i));
+            products.set(i, auxProduct);
+        }
+        return products;
+    }
+
     public static Product productBinarySearch(int productCode) {
         List<Product> products = Load.products;
         int startIndex = 0, endIndex = products.size() - 1;
@@ -69,25 +103,5 @@ public class Product {
         }
         return null;
     }
-
-    /*
-    public static Product productBinarySearch(int productCode) {
-        List<Product> products = Load.products;
-        Comparator<Product> c = new Comparator<Product>() {
-            @Override
-            public int compare(Product o1, Product o2) {
-                return (o1.getId() == o2.getId()) ? 0 : -1;
-            }
-        };
-        int index = Collections.binarySearch(products, new Product(productCode, ""), c);
-
-        // debug
-        //System.out.println(index + " - " + products.get(productCode-1).getId());
-        //System.out.println(products.get(1).getId() == products.get(1).getId() ? 0 : -1);
-
-
-        return products.get(index);
-    }
-    */
 
 }
